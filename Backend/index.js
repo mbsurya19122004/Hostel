@@ -47,8 +47,16 @@ const app = express();
 const router = require("./routes/Route");
 const cors = require("cors");
 
+const allowedOrigins = process.env.FRONTEND_URLS.split(",");
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
 
