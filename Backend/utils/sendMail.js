@@ -1,42 +1,44 @@
+
 require("dotenv").config();
 
 const nodemailer = require("nodemailer");
 
-// CREATE TRANSPORTER
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // STARTTLS
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     }
 });
 
-// SEND MAIL FUNCTION , 
-const sendMail = async (to,subject,html) => {//to->receiver mail
+// Check SMTP connection when server starts
+transporter.verify((error, success) => {
+    if (error) {
+        console.error("❌ SMTP ERROR:", error);
+    } else {
+        console.log("✅ SMTP SERVER READY");
+    }
+});
 
+const sendMail = async (to, subject, html) => {
     try {
-        const info =await transporter.sendMail({
-                from: `"Hostel Management" <${process.env.EMAIL_USER}>`,
-                to,
-                subject,
-                html
-            });
+        const info = await transporter.sendMail({
+            from: `"Hostel Management" <${process.env.EMAIL_USER}>`,
+            to,
+            subject,
+            html
+        });
 
-        console.log(
-            "Email sent:",
-            info.messageId
-        );
+        console.log("Email sent:", info.messageId);
+
+        return info;
 
     } catch (error) {
+        console.error("❌ Mail Error:", error);
 
-        console.log(
-            "Mail Error:",
-            error.message
-        );
-
-        throw new Error(
-            "Failed to send email"
-        );
+        throw error;
     }
 };
 
