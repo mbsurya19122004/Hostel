@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as api from "../api/api";
+import { Button, ErrorNote, Input, SuccessNote } from "../components/UI";
 import { useAuth } from "../context/AuthContext";
-import { Button, ErrorNote, SuccessNote, Input } from "../components/UI";
 
 export default function VerifyOtp() {
   const location = useLocation();
@@ -57,7 +57,7 @@ export default function VerifyOtp() {
     <div className="min-h-screen bg-navy flex flex-col justify-center px-5 py-10">
       <div className="mx-auto w-full max-w-sm bg-white rounded-pass p-6">
         <h1 className="font-display font-semibold text-xl text-ink mb-1">Enter your code</h1>
-        <p className="text-sm text-inkmute mb-5">We sent a 6-digit code to <span className="font-medium text-ink">{email}</span>.</p>
+        <p className="text-sm text-inkmute mb-5 w-[100%]">We sent a 6-digit code to <span className="font-medium text-ink">{email}</span>.</p>
 
         <form onSubmit={submit}>
           <ErrorNote message={error} />

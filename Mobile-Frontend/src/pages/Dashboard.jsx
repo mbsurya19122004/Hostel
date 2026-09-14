@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as api from "../api/api";
+import { Card, errMsg, ErrorNote, money, SectionTitle, Spinner } from "../components/UI";
 import { useAuth } from "../context/AuthContext";
-import { Card, SectionTitle, Spinner, ErrorNote, Badge, money, errMsg } from "../components/UI";
 
 function Stat({ label, value, accent }) {
   return (
@@ -67,7 +67,7 @@ function StudentHome() {
 
       <div className="grid grid-cols-2 gap-3">
         <Link to="/complaints"><Card accent="navy"><p className="font-medium text-sm">File a complaint</p><p className="text-xs text-inkmute mt-0.5">Report a room or mess issue</p></Card></Link>
-        <Link to="/lunchbox"><Card accent="pine"><p className="font-medium text-sm">Book lunchbox</p><p className="text-xs text-inkmute mt-0.5">For when you'll miss lunch</p></Card></Link>
+        <Link to="/mess"><Card accent="pine"><p className="font-medium text-sm">Book lunchbox</p><p className="text-xs text-inkmute mt-0.5">For when you'll miss lunch</p></Card></Link>
         <Link to="/leave"><Card accent="mustard"><p className="font-medium text-sm">Apply for outing</p><p className="text-xs text-inkmute mt-0.5">Let the hostel know</p></Card></Link>
         <Link to="/kyc"><Card accent="line"><p className="font-medium text-sm">KYC status</p><p className="text-xs text-inkmute mt-0.5">Verify your identity docs</p></Card></Link>
       </div>
